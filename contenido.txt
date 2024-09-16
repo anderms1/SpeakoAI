@@ -1,0 +1,16 @@
+-------------USERS-------------
+- Nombre
+- Apellido
+- Mail
+- Contraseña
+- Idioma natal
+- Nivel del idioma
+- Progreso
+- Fecha de registro
+- Foto de perfil
+
+---------USERLENGUAGE---------
+- User
+- Progreso
+- Nivel de ingles
+- Idioma estudiando
