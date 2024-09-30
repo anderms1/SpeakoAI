@@ -1,0 +1,12 @@
+{% extends 'core/layout.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Bienvenido al Dashboard <b>{{ request.user.first_name }}</b>!</h1>
+        <p>Este es el contenido del dashboard.</p>
+    </main>
+{% endblock %}

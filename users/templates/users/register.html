@@ -1,7 +1,100 @@
-<h2>Registrarse</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ user_form.as_p }}  
-    {{ language_form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'users/image/logo.png' %}">
+    <title>Speako - Regístrarse</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-slate-100">
+    <header class="bg-black items-center p-5">
+        <h1 class="text-white text-3xl font-extrabold tracking-wider "><a href="/">SPEAKO</a></h1>
+    </header>
+    <div class="flex items-center justify-center ">
+        <main class=" p-8  w-2/6 m-10">
+            <h2 class="text-black text-xl font-bold mb-4 ">Registrarse</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="space-y-4">
+                    <!-- First Name & Last Name field -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-1">
+                            <label for="{{ user_form.first_name.id_for_label }}" class="font-semibold">Nombre</label><br>
+                            {{ user_form.first_name }}
+                        </div>
+                        <div>
+                            <label for="{{ user_form.last_name.id_for_label }}" class="font-semibold">Apellido</label><br>
+                            {{ user_form.last_name }}
+                        </div>
+                    </div>
+
+                    <!-- Email field -->
+                    <div>
+                        <label for="{{ user_form.email.id_for_label }}" class="font-semibold">Correo Electrónico</label><br>
+                        {{ user_form.email }}
+                        {% if user_form.email.errors %}
+                            {% for error in user_form.email.errors %}
+                                <p class="p-1 rounded-xl text-xs text-red-500 bg-red-200 w-max mt-1">❌ {{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!-- Languages field -->
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label for="{{ user_form.idioma_natal.id_for_label }}" class="font-semibold">Idioma Nativo</label><br>
+                            {{ user_form.native_language }}
+                        </div>
+                        <div>
+                            <label for="{{ user_form.studying_language.id_for_label }}" class="font-semibold">Quiero Aprender</label><br>
+                            {{ language_form.studying_language }}
+                        </div>
+                        <div>
+                            <label for="{{ user_form.language_level.id_for_label }}" class="font-semibold">Nivel</label><br>
+                            {{ language_form.language_level }}
+                        </div>
+                    </div>
+
+                    <!-- Password field -->
+                    <div class="">
+                        <div>
+                            <label for="{{ user_form.password1.id_for_label }}" class="font-semibold">Contraseña</label><br>
+                            {{ user_form.password1 }}
+                            <br>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="{{ user_form.password2.id_for_label }}" class="font-semibold">Repetir Contraseña</label><br>
+                            {{ user_form.password2 }}
+                            {% if user_form.password1.errors %}
+                                <ul class="mt-2 text-sm text-red-600">
+                                    {% for error in user_form.password1.errors %}
+                                        <li class="p-1 text-xs rounded-xl bg-red-200 mt-1 w-max">❌ {{ error }}</li>
+                                    {% endfor %}
+                                </ul>                            
+                            {% endif %}
+                            {% if user_form.password2.errors %}
+                                <ul class="mt-2 text-sm text-red-600">
+                                    {% for error in user_form.password2.errors %}
+                                        <li class="p-1 text-xs rounded-xl bg-red-200 mt-1 w-max">❌ {{ error }}</li>
+                                    {% endfor %}
+                                </ul>                            
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                    <button type="submit" class="bg-black text-white rounded-full p-3 font-bold px-8">Registrarse</button>
+                </div>
+            </form>
+            <br>
+            <div class="text-center">
+                <span>Ya tienes una cuenta?<a href="/login" class="text-blue-500"> Iniciar sesion</a></span>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

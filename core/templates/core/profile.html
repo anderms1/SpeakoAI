@@ -1,0 +1,12 @@
+{% extends 'core/layout.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Este el profile de <b>{{ request.user.first_name }}</b>!</h1>
+
+    </main>
+{% endblock %}

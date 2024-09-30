@@ -1,0 +1,46 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'users/css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'users/image/logo.png' %}">
+    <title>Speako</title>
+    {% tailwind_css %}
+</head>
+<body class="relative">
+    <header>
+        <nav class="bg-black/0 border-neutral-200/0 fixed backdrop-blur-xl border-b top-0 w-full flex justify-center items-center p-5 ">
+            <div class="max-w-6xl flex justify-between w-full items-center">
+                <a class="max-w-5xl items-center h-full" href="/">
+                    <p class="text-white text-3xl font-extrabold tracking-wider">SPEAKO</p>
+                </a>
+                <div class="flex gap-8 items-center h-full max-md:hidden">
+                    <div class="flex gap-4 items-center h-full max-md:hidden">
+                        <a class="text-white/90 hover:text-white/70 active:text-white/60 max-md:text-2xl truncate cursor-pointer md:h-full font-bold " href="/login">Iniciar sesión</a>
+                    </div>
+                    <div class="flex gap-4 items-center h-full max-md:hidden">
+                        <a class="hover:bg-white bg-transparent text-white border-white border-4 hover:text-black truncate cursor-pointer rounded-full py-2 px-4 font-bold" href="/register">Empezar ahora</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="max-w-7xl m-auto flex flex-col">
+        <div class="w-full  absolute left-0 -z-20 pointer-events-none overflow-hidden isLoaded">
+            <video src="{% static 'users/video/background.mp4' %}" autoplay muted loop class="h-full w-full blur-lg scale-x-125 scale-y-105 bg-black isLoaded"></video>
+            <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-white pointer-events-none"></div>
+        </div>
+        <div class="flex items-center justify-center h-screen text-white text-center p-10">
+            <div class=" w-11/12">
+                <h1 class="text-7xl font-bold">Aprende cualquier idioma por tu cuenta con IA</h1>
+                <div class="mt-20">
+                    <h2 class="text-xl font-bold">Comienza ya a aprender</h2>
+                    <a href="/register" class="font-bold text-lg mt-4 inline-block bg-gray-950 text-white py-4 px-8 rounded-full hover:bg-gray-800">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

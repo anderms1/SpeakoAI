@@ -1,0 +1,12 @@
+{% extends 'core/layout.html' %}
+
+{% block title %}
+Translator
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Esto es el translator de <b>{{ request.user.get_native_language_display }} a {{ request.user.languages.first.get_studying_language_display }} </b>!</h1>
+
+    </main>
+{% endblock %}

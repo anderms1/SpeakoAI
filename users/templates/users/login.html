@@ -1,0 +1,49 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'users/image/logo.png' %}">
+    <title>Speako - Log In</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-slate-100">
+    <header class="bg-black items-center p-5">
+        <h1 class="text-white text-3xl font-extrabold tracking-wider "><a href="/">SPEAKO</a></h1>
+    </header>
+    <div class="flex items-center justify-center ">
+        <main class=" p-8  w-2/6 m-10">
+            <h2 class="text-black text-xl font-bold mb-4 ">Iniciar sesion</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <label for="email" class="text-black font-semibold">Correo Electrónico</label><br>
+                    {{ form.username }}<br>
+                    <label for="" class="text-black font-semibold">Contraseña</label><br>
+                    {{ form.password }}<br>
+                </div>
+                {% if form.errors %}
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li class="p-1 text-xs rounded-xl bg-red-200 mt-1 w-max">❌ {{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li class="p-1 text-xs rounded-xl bg-red-200 mt-1 w-max">❌ {{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <button type="submit" class="w-full bg-black text-white py-2 px-4 rounded-full font-bold mt-4">
+                    Iniciar Sesión
+                </button>
+            </form>
+            <br>
+            <div class="text-center">
+                <span>No tienes una cuenta?<a href="/register" class="text-blue-500"> Registrarse</a></span>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
