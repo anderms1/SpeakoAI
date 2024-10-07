@@ -5,8 +5,70 @@ Profile
 {% endblock %}
 
 {% block content %}
-    <main>
-        <h1>Este el profile de <b>{{ request.user.first_name }}</b>!</h1>
+<main class="flex flex-col justify-center items-center">
+    <h1 class="text-3xl font-bold p-4 justify-start">Profile</h1>
+    <div class="shadow-lg m-4 rounded-lg w-2/3">
+        <div>
+            <hr class="border-black border-b-2">
+            <h3 class="m-2 font-medium">Settings</h3>
+            <div class="flex items-center">
+                <div class="m-4 bg-slate-300 rounded-full">
+                    <img src="{{ request.user.profile_photo.url }}" width="100vh" class="p-2" />
+                </div>
+                <div class="m-4">
+                    <h2 class="text-2xl font-bold underline" id="userName">{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+                </div>
+            </div>
+            <div class="mx-28 my-4">
+                <form method="POST" id="editForm">
+                    {% csrf_token %}
+                    <div class="flex flex-col space-y-6">
+                        <div class="flex flex-col">
+                            <label for="email" class="text-xl font-medium">Email</label>
+                            <input type="email" id="email" name="email" value="{{ request.user.email }}" class="bg-gray-100 rounded-md p-2" disabled/>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="first_name" class="text-xl font-medium">Nombre</label>
+                            <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}" class=" rounded-md p-2" />
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="last_name" class="font-medium">Apellido</label>
+                            <input type="text" id="last_name" name="last_name" value="{{ request.user.last_name }}" class="rounded-md p-2" />
+                        </div>
+                        <div class="flex space-x-16">
+                            <div>
+                                <label for="last_name" class="font-medium">Lenguaje Nativo</label>
+                                <input type="text" id="last_name" name="last_name" value="{{ request.user.get_native_language_display }}" class="bg-gray-100 rounded-md p-2" disabled />
+                            </div>
+                        </div>
+                        <div id="response-message"></div>
+                        <div class="flex justify-center mt-6">
+                            <button type="submit" class="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-700">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-lg m-4 rounded-lg w-2/3">
+        <div>
+            <hr class="border-black border-b-2">
+            <h3 class="m-2 font-medium">Progreso de Idiomas</h3>
+            <div class="flex flex-col space-y-6">
+                <div class="shadow-md p-4 rounded-lg">
+                {% for language in request.user.languages.all %}
+                    <h4 class="text-xl font-semibold mb-2"> {{ language.get_studying_language_display }} -> {{ language.get_language_level_display }}</h4>                   
+                {% empty %}
+                    <p class="text-gray-500">Aún no estás estudiando ningún idioma.</p>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
-    </main>
 {% endblock %}
+
+
