@@ -10,7 +10,7 @@ LENGUAGE_LEVEL_CHOICES = [
 
 LENGUAGE_CHOICES =[
         ('es','Español'),
-        ('en','English'),
+        ('en-us','English'),
     ]
 
 class CustomUser(AbstractUser):
