@@ -19,7 +19,7 @@ Profile
                     <h2 class="text-2xl font-bold underline" id="userName">{{ request.user.first_name }} {{ request.user.last_name }}</h2>
                 </div>
             </div>
-            <div class="mx-28 my-4">
+            <div class="mx-10 my-4">
                 <form method="POST" id="editForm">
                     {% csrf_token %}
                     <div class="flex flex-col space-y-6">
@@ -52,7 +52,7 @@ Profile
             </div>
         </div>
     </div>
-    <div class="shadow-lg m-4 rounded-lg w-2/3">
+    <div class="shadow-lg m-4 rounded-lg w-2/3 mb-6">
         <div>
             <hr class="border-black border-b-2">
             <h3 class="m-2 font-medium">Progreso de Idiomas</h3>
@@ -66,6 +66,9 @@ Profile
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <a href="{% url 'logout' %}" class="text-white rounded-md p-2  bg-black ">Logout</a>
     </div>
 </main>
 

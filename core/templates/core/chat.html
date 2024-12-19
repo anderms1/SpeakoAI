@@ -1,12 +1,43 @@
 {% extends 'core/layout.html' %}
+{% load static %}
 
-{% block title %}
-Chat
-{% endblock %}
+{% block title %} Chat {% endblock %}
 
 {% block content %}
-    <main>
-        <h1>Esto es el chat!</h1>
+<main class="flex justify-center align-middle">
+    <div class="chatContainer  m-10">
+        <h1 class="text-2xl">Teacher</h1>
+        <hr class="border-black">
+        <div class="chat bg-slate-200 mt-2 rounded-md">
+            <div id="chatWindow" class="p-2">
+                {% for message in messages %}
+                    <div class="message-{{message.role}}">
+                        {{ message.content }}
+                    </div>
+                {% endfor %}
+            </div>
+            <form id="chatForm" class="mt-4 p-2">
+                <div class="flex w-full items-center">
+                    <textarea id="userMessage" class="rounded-lg flex-grow w-full m-3 resize-none" rows="1" placeholder="Enviar mensaje" autofocus oninput="autoResize(this)"></textarea>
+                    <button class="m-2" type="submit">
+                        <img class="hover-button" src="{% static 'core/images/send-icon.png' %}" width="25px">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script>
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
 
-    </main>
+    function scrollToBottom() {
+        const chatWindow = document.getElementById("chatWindow");
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    scrollToBottom();
+</script>
 {% endblock %}

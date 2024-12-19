@@ -4,6 +4,13 @@ from users.models import CustomUser
 import json
 from django.http import JsonResponse
 from .services import translate_deepl
+import openai
+from .models import ChatMessage
+from django.shortcuts import redirect
+from django.contrib.auth import logout
+
+import os
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Create your views here.
 @login_required
@@ -38,7 +45,6 @@ def translator_view(request):
     return render(request, 'core/translator.html')
 
 @login_required
-
 def translate_api_view(request):
     if request.method == 'POST':
         try:
@@ -63,4 +69,53 @@ def translate_api_view(request):
 
 @login_required
 def chat_view(request):
-    return render(request, 'core/chat.html')
+    messages = ChatMessage.objects.filter(user=request.user).order_by("timestamp")
+    return render(request, 'core/chat.html', {'messages': messages})
+
+@login_required
+def chat_api_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user_message = data.get("message")
+            user = request.user
+
+            name = user.first_name
+            user_language = user.languages.first()
+            level = user_language.language_level
+            language = user_language.studying_language
+
+            messages = ChatMessage.objects.filter(user=user).order_by("timestamp")
+            conversation = [{"role": "system", "content": f"You are an {language} teacher helping the user learn {language}."},
+                            {"role": "system", "content": f"The user's name is {name}."},
+                            {"role": "system", "content": f"Your name is Quik"},
+                            {"role": "system", "content": f"Pay attention to their messages in {language}, if there is a mistake, correct it first."},
+                            {"role": "system", "content": f"Speak in {language} with the user, unless the user tell to speak in her language."},
+                            {"role": "system", "content": f"The user has an {level} level of English."},
+                            {"role": "system", "content": "Focus on improving their vocabulary and grammar."}]
+            for msg in messages:
+                conversation.append({"role": msg.role, "content": msg.content})
+
+            conversation.append({"role": "user", "content": user_message})
+
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo", 
+                messages=conversation
+            )
+
+            assistant_message = response["choices"][0]["message"]["content"]
+
+            ChatMessage.objects.create(user=user, role="user", content=user_message)
+            ChatMessage.objects.create(user=user, role="assistant", content=assistant_message)
+
+            return JsonResponse({"response": assistant_message})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)    
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+    
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')

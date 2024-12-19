@@ -1,0 +1,21 @@
+# Django Core
+Django>=4.0,<5.0
+asgiref>=3.5
+sqlparse>=0.4.3
+tzdata>=2023.3
+
+# TailwindCSS Integration
+django-tailwind>=3.8.0
+
+# Browser Reload for Development
+django-browser-reload>=1.15.0
+
+# API Integration for OpenAI
+openai>=0.28.0
+httpx>=0.28.1
+
+# DeepL API Client
+deepl>=1.19.1
+
+# Environment Variable Management
+python-dotenv>=1.0.1

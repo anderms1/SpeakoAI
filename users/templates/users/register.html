@@ -7,13 +7,14 @@
     <link rel="shortcut icon" href="{% static 'users/image/logo.png' %}">
     <title>Speako - Regístrarse</title>
     {% tailwind_css %}
+    {% load static %}
 </head>
 <body class="bg-slate-100">
     <header class="bg-black items-center p-5">
         <h1 class="text-white text-3xl font-extrabold tracking-wider "><a href="/">SPEAKO</a></h1>
     </header>
     <div class="flex items-center justify-center ">
-        <main class=" p-8  w-2/6 m-10">
+        <main class=" p-8   m-10">
             <h2 class="text-black text-xl font-bold mb-4 ">Registrarse</h2>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}

@@ -4,34 +4,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const csrfToken = getCookie('csrftoken');
 
-    // Event listener para el formulario de edición de perfil
-    document.getElementById('editForm').addEventListener('submit', function(event){
-        event.preventDefault();
+    const editForm = document.getElementById('editForm');
+    if(editForm){
+        // Event listener para el formulario de edición de perfil
+        editForm.addEventListener('submit', function(event){
+            event.preventDefault();
 
-        let formData = new FormData(this);
+            let formData = new FormData(this);
 
-        fetch("/core/edit_profile/", {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRFToken': csrfToken
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.error){
-                document.getElementById('response-message').innerHTML = `<h2>${data.error}</h2>`;
-            } else {
-                const messageElement = document.getElementById('response-message');
-                messageElement.innerHTML = `<p>Los datos se han guardado correctamente.</p>`;
+            fetch("/core/edit_profile/", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.error){
+                    document.getElementById('response-message').innerHTML = `<h2>${data.error}</h2>`;
+                } else {
+                    const messageElement = document.getElementById('response-message');
+                    messageElement.innerHTML = `<p>Los datos se han guardado correctamente.</p>`;
 
-                document.getElementById('userName').textContent = `${data.first_name} ${data.last_name}`;
-                setTimeout(() => {
-                    messageElement.innerHTML = ''; 
-                }, 2000);
-            }
+                    document.getElementById('userName').textContent = `${data.first_name} ${data.last_name}`;
+                    setTimeout(() => {
+                        messageElement.innerHTML = ''; 
+                    }, 2000);
+                }
+            });
         });
-    });
+    }
+    
 });
 
 
@@ -77,11 +81,70 @@ document.addEventListener("DOMContentLoaded", function() {
     const source = document.getElementById('source');
     const target = document.getElementById('target');
 
+    if(textArea){
+        textArea.addEventListener('input', realizarTraduccion);
+    }
 
-    textArea.addEventListener('input', realizarTraduccion);
-    source.addEventListener('change', realizarTraduccion);
-    target.addEventListener('change', realizarTraduccion);
+    if(source){
+        source.addEventListener('change', realizarTraduccion);
+    }
+    
+    if(target){
+        target.addEventListener('change', realizarTraduccion);
+    }
+    
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const chatWindow = document.getElementById('chatWindow');
+    const userMessage = document.getElementById("userMessage");
+    const chatForm = document.getElementById("chatForm");
+    
+
+    chatForm.addEventListener('submit', function(event){
+        event.preventDefault();
+
+        const message = userMessage.value.trim();
+        if (!message) return;
+
+        appendMessage("user", message);
+        userMessage.value = "";
+
+        fetch("/core/chat-api/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({ message: message }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.response) {
+                appendMessage("assistant", data.response);
+            } else {
+                console.error("Error:", data.error);
+            }
+        })
+        .catch((error) => console.error("Error:", error));
+    });
+
+    function appendMessage(role, content) {
+        const messageDiv = document.createElement("div");
+        if (role === "user") {
+            messageDiv.className = "message-user";
+            messageDiv.innerHTML = `<span>${content}</span>`;
+        } else {
+            messageDiv.className = "message-assistant";
+            messageDiv.innerHTML = `<span>${content}</span>`;
+        }
+        chatWindow.appendChild(messageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+});
+
+
 
 
 function realizarTraduccion(){

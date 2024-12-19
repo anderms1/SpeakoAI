@@ -13,11 +13,11 @@
         <h1 class="text-white text-3xl font-extrabold tracking-wider "><a href="/">SPEAKO</a></h1>
     </header>
     <div class="flex items-center justify-center ">
-        <main class=" p-8  w-2/6 m-10">
+        <main class="p-8  m-10">
             <h2 class="text-black text-xl font-bold mb-4 ">Iniciar sesion</h2>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div>
+                <div >
                     <label for="email" class="text-black font-semibold">Correo Electrónico</label><br>
                     {{ form.username }}<br>
                     <label for="" class="text-black font-semibold">Contraseña</label><br>

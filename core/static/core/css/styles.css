@@ -1,0 +1,64 @@
+/* Contenedor principal del chat */
+.chat {
+    height: 70vh; /* Altura fija del chat */
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Form abajo y chat arriba */
+    overflow: hidden;
+}
+
+/* Ventana de mensajes con scroll */
+#chatWindow {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    overflow-y: auto; /* Scroll si se excede la altura */
+    padding: 10px;
+}
+
+/* Botón de envío con animación */
+.hover-button {
+    transition: transform 0.3s ease;
+}
+
+.hover-button:hover {
+    transform: scale(1.2);
+}
+
+/* Mensajes del usuario alineados a la derecha */
+.message-user {
+    max-width: 50%;
+    width: fit-content;
+    margin-left: auto; /* Alineado a la derecha */
+    background-color: #d1f7c4;
+    padding: 8px 12px;
+    border-radius: 10px 10px 10px 0px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+/* Mensajes del asistente alineados a la izquierda */
+.message-assistant {
+    max-width: 50%;
+    width: fit-content;
+    margin-right: auto; /* Alineado a la izquierda */
+    background-color: #f3f4f6;
+    padding: 8px 12px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+.chatContainer{
+    width: 50%;
+}
+.translatorView{
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .chatContainer{
+        width: 100%;
+    }
+    .translatorView{
+        width: 100%;
+    }
+}

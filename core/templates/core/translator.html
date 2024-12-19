@@ -8,13 +8,13 @@ Translator
     <main class="mt-5"> 
         <h1 class="text-xl font-bold ml-4">TRANSLATOR</h1>
         <div class="flex justify-center mt-4 text-gray-600">
-            <div class="w-2/3 p-6 rounded-lg">
+            <div class="translatorView p-2 rounded-lg">
                 <form action="" method="post" id="translatorForm">
                     <div class="flex justify-between items-center w-full">
                         <div class="w-1/2">
                             <label for="source" class="text-xl font-semibold tracking-wide">Traducir de</label><br>
                             <select name="source" id="source" class="p-2 rounded w-full bg-transparent">
-                                <option value="empty" disabled selected>Selecciona una opción</option>
+                                <option value="empty" disabled selected>Selecciona</option>
                                 <option value="EN">English</option>
                                 <option value="es">Spanish</option>
                                 <option value="fr">French</option>
@@ -27,7 +27,7 @@ Translator
                         <div class="w-1/2">
                             <label for="target" class="text-xl font-semibold tracking-wide">Traducir a</label><br>
                             <select name="target" id="target" class="p-2 rounded w-full bg-transparent">
-                                <option value="empty" disabled selected>Selecciona una opción</option>
+                                <option value="empty" disabled selected>Selecciona </option>
                                 <option value="EN-US">English</option>
                                 <option value="es">Spanish</option>
                                 <option value="fr">French</option>
@@ -40,7 +40,7 @@ Translator
                             <textarea name="text" id="text" class="focus:border-gray-300 focus:outline-none focus:ring-0 border-gray-300 text-xl p-2 rounded w-full bg-transparent h-4/5 resize-none" rows="10" placeholder="Escribe" autofocus></textarea>
                         </div>
                         <div class="w-1/2 ml-2">
-                            <textarea name="translation" id="translation" class=" focus:ring-0 border-none focus:outline-none text-xl p-2 rounded w-full bg-transparent h-4/5 resize-none  bg-gray-200 " rows="10" placeholder="Traducción" readonly></textarea>
+                            <textarea name="translation" id="translation" class=" focus:ring-0 border-none focus:outline-none text-xl p-2 rounded w-full bg-transparent h-4/5 resize-none bg-gray-300 " rows="10" placeholder="Traducción" readonly></textarea>
                         </div>
                     </div>
                 </form>
